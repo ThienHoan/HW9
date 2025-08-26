@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import AppLayout from '@/components/layouts/AppLayout.vue'
-import UsersListPage from '@/modules/users/pages/UsersListPage.vue'
+import UsersListPage from '@/views/UsersListPage.vue'
 </script>
 
 <template>

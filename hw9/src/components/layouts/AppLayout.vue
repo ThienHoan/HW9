@@ -1,25 +1,23 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
-import AppSidebar from './AppSidebar.vue'
-import AppHeader from './AppHeader.vue'
+import { RouterView } from "vue-router";
+import AppSidebar from "./AppSidebar.vue";
+import AppHeader from "./AppHeader.vue";
 </script>
 
 <template>
-  <div class="min-h-screen bg-#0f1e3a text-white">
-    <main class="p-6">
-      
-      <div class="mt-6 flex gap-6">
-        <AppSidebar />
-        <section class="flex-1">
-          <AppHeader />
-          <RouterView />
-        </section>
+  <div
+    class="rubick px-5 sm:px-8 py-5 before:content-[''] before:bg-gradient-to-b before:from-theme-1 before:to-theme-2 dark:before:from-darkmode-800 dark:before:to-darkmode-800 before:fixed before:inset-0 before:z-[-1]"
+  >
+    <div class="mt-[4.7rem] flex md:mt-0">
+      <AppSidebar />
+      <div
+        class="md:max-w-auto min-h-screen min-w-0 max-w-full flex-1 rounded-[30px] bg-slate-100 px-4 pb-10 before:block before:h-px before:w-full before:content-[''] dark:bg-darkmode-700 md:px-[22px]"
+      >
+        <AppHeader />
+        <RouterView />
       </div>
-    </main>
+    </div>
   </div>
 </template>
 
-<style scoped>
-</style>
-
-
+<style scoped></style>
