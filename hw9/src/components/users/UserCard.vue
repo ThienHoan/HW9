@@ -1,16 +1,26 @@
 <script setup lang="ts">
-defineProps<{ avatar: string; name: string; title: string }>()
+import type { User } from '../../services/api'
+
+defineProps<{ 
+  user: User;
+  avatar?: string;
+}>()
 </script>
 
 <template>
   <div class="box">
     <div class="flex flex-col items-center p-5 border-b lg:flex-row border-slate-200/60 dark:border-darkmode-400">
       <div class="w-24 h-24 lg:w-12 lg:h-12 image-fit lg:mr-1">
-        <img :alt="name" class="rounded-full" :src="avatar" />
+        <img :alt="user.name" class="rounded-full" :src="avatar || '/images/profile-1-DTCKrF_v.jpg'" />
       </div>
       <div class="mt-3 text-center lg:ml-2 lg:mr-auto lg:text-left lg:mt-0">
-        <a href="" class="font-medium">{{ name }}</a>
-        <div class="text-slate-500 text-xs mt-0.5">{{ title }}</div>
+        <a href="" class="font-medium">{{ user.name }}</a>
+        <div class="text-slate-500 text-xs mt-0.5">{{ user.category }}</div>
+        <div class="text-slate-400 text-xs">{{ user.email }}</div>
+        <div v-if="user.phone" class="text-slate-400 text-xs">📞 {{ user.phone }}</div>
+        <span :class="user.is_active ? 'text-green-600' : 'text-red-600'" class="text-xs font-medium">
+          {{ user.is_active ? '🟢 Active' : '🔴 Inactive' }}
+        </span>
       </div>
       <div class="flex mt-3 -ml-2 lg:ml-0 lg:justify-end lg:mt-0">
         <slot name="actions">

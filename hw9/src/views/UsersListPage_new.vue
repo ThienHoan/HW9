@@ -50,7 +50,7 @@ const visiblePages = computed(() => {
 
 // Methods
 const handleAddUser = () => {
-  router.push('/crud-form')
+  router.push('/crud')
 }
 
 const refreshUsers = async () => {
