@@ -11,8 +11,12 @@ const app = express()
 const PORT = process.env.PORT || 3001
 
 // Middleware
+const allowedOrigins = process.env.NODE_ENV === 'production' 
+  ? ['http://localhost', 'https://localhost', 'http://frontend', 'https://frontend'] // Docker networking
+  : ['http://localhost:5173', 'http://localhost:4173']
+
 app.use(cors({
-  origin: 'http://localhost:5173', // Vue dev server
+  origin: allowedOrigins,
   credentials: true
 }))
 app.use(express.json())

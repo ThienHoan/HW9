@@ -3,7 +3,7 @@ import { databaseService } from '../services/database'
 import { CreateUserSchema } from '../schemas/user'
 import { z } from 'zod'
 
-const router = Router()
+const router: ReturnType<typeof Router> = Router();
 
 // GET /api/users - Lấy danh sách users
 router.get('/users', async (req: Request, res: Response) => {
@@ -62,6 +62,41 @@ router.post('/users', async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       message: 'Failed to create user',
+      error: error instanceof Error ? error.message : 'Unknown error'
+    })
+  }
+})
+
+// GET /api/users/:id - Lấy user theo ID
+router.get('/users/:id', async (req: Request, res: Response) => {
+  try {
+    const userId = parseInt(req.params.id)
+    
+    if (isNaN(userId)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid user ID'
+      })
+    }
+
+    const user = await databaseService.getUserById(userId)
+    
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: 'User not found'
+      })
+    }
+
+    res.json({
+      success: true,
+      data: user
+    })
+  } catch (error) {
+    console.error('Error in GET /users/:id:', error)
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fetch user',
       error: error instanceof Error ? error.message : 'Unknown error'
     })
   }

@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  # Backend API
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: hw9-backend-dev
+    environment:
+      - NODE_ENV=development
+      - PORT=3001
+      - DATABASE_URL=${DATABASE_URL}
+    ports:
+      - "3001:3001"
+    networks:
+      - hw9-network
+    restart: unless-stopped
+
+  # Frontend (Nginx + Vue SPA)
+  frontend:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: hw9-frontend-dev
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    networks:
+      - hw9-network
+    restart: unless-stopped
+
+networks:
+  hw9-network:
+    driver: bridge
